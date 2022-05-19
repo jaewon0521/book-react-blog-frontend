@@ -4,12 +4,16 @@ import createRequestSaga, { createRequestActionTypes } from '../lib/createReques
 import { takeLatest } from 'redux-saga/effects';
 import * as authAPI from '../lib/api/auth';
 
+
+// 액션 타입 정의
 const CHANGE_FIELD = 'auth/CHANGE_FIELD';
 const INITIALIZE_FORM = 'auth/INITIALIZE_FORM';
 
 const [REGISTER, REGISTER_SUCCESS, REGISTER_FAILURE] = createRequestActionTypes('auth/REGISTER');
 const [LOGIN, LOGIN_SUCCESS, LOGIN_FAILURE] = createRequestActionTypes('auth/LOGIN');
 
+
+// 액션 생성 함수
 export const changeField = createAction(
   CHANGE_FIELD,
   ({ form, key, value }) => ({
@@ -39,7 +43,7 @@ export function* authSaga() {
   yield takeLatest(LOGIN, loginSaga);
 }
 
-
+// auth 초기 상태
 const initialState = {
   register: {
     userName: '',
@@ -54,7 +58,7 @@ const initialState = {
   authError: null,
 }
 
-
+// 리듀서 함수
 const auth = handleActions(
   {
     [CHANGE_FIELD]: (state, { payload: { form, key, value } }) =>
