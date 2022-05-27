@@ -62,13 +62,6 @@ const LoginForm = () => {
   useEffect(() => {
     if (user) {
       navigate('/');
-    }
-  }, [user]);
-
-  useEffect(() => {
-    debugger
-    if (user) {
-      navigate('/');
       try {
         localStorage.setItem('user', JSON.stringify(user));
       } catch (e) {
@@ -76,6 +69,8 @@ const LoginForm = () => {
       }
     }
   }, [user]);
+
+  
 
 
   return (
