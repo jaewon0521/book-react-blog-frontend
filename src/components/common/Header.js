@@ -54,7 +54,6 @@ const Header = ({ user, onLogout }) => {
             <Button to="/login">로그인</Button>
           </div>
           )}
-          
         </Wrapper>
       </HeaderBlock>
       <Spacer />
