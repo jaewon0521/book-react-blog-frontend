@@ -1,4 +1,5 @@
 import React, { useCallback, useState } from 'react';
+import { useEffect } from 'react';
 import styled from 'styled-components';
 import palette from '../../lib/styles/palette';
 
@@ -75,19 +76,25 @@ const TagList = React.memo(({ tags, onRemove }) => (
   </TagListBlock>
 ))
 
-const TagBox = () => {
+const TagBox = ({tags, onChangeTags}) => {
   const [input, setInput] = useState('');
   const [localTags, setLocalTags] = useState([]);
 
   const insertTag = useCallback(tag => {
-      if (!tag) return; // 공백이라면 추가하지 않음
-      if (localTags.includes(tag)) return; // 이미 존재한다면 추가하지 않음
-      setLocalTags([...localTags, tag]);
-    }, [localTags]);
+    if (!tag) return; // 공백이라면 추가하지 않음
+    if (localTags.includes(tag)) return; // 이미 존재한다면 추가하지 않음
+    
+    const nextTags = [...localTags, tag];
+    setLocalTags(nextTags);
+    onChangeTags(nextTags);
+    }, [localTags, onChangeTags]);
   
   const onRemove = useCallback(tag => {
-      setLocalTags(localTags.filter(t => t !== tag));
-    }, [localTags]);
+    debugger
+    const nextTags = localTags.filter(t => t !== tag);
+    setLocalTags(nextTags);
+    onChangeTags(nextTags);
+    }, [localTags,onChangeTags]);
   
   const onChange = useCallback(e => {
     setInput(e.target.value)
@@ -98,6 +105,11 @@ const TagBox = () => {
     insertTag(input.trim()); // 앞뒤 공백을 없앤 후 등록
     setInput('') //input 초기화
   }, [input, insertTag]);
+
+  //태그 값이 바뀔 때
+  useEffect(() => {
+    setLocalTags(tags);
+  }, [tags]);
   
   return (
     <TagBoxBlock>
