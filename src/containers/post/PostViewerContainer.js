@@ -1,12 +1,11 @@
 import React, { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { readPost, unloadPost } from '../../modules/post';
 import PostViewer from '../../components/post/PostViewer';
 
-const PostViewerContainer = ({ match }) => {
-  const { postId } = match.params;
-  const navigate = useNavigate();
+const PostViewerContainer = () => {
+  const { postId } = useParams();
   const dispatch = useDispatch();
   const { post, error, loading } = useSelector(({ post, loading }) => ({
     post: post.post,
