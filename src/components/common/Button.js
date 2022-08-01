@@ -30,6 +30,11 @@ background: ${palette.gray[8]};
       background: ${palette.cyan[4]};
     }
   `}
+  &:disabled {
+    background: ${palette.gray[3]};
+    color: ${palette.gray[5]};
+    cursor: not-allowed;
+  }
 `;
 
 const StyledButton = styled.button`
@@ -37,7 +42,7 @@ const StyledButton = styled.button`
 `;
 
 const StyledLink = styled(Link)`
- ${buttonStyle} 
+  ${buttonStyle} 
 `;
 
 const Button = (props) => {
