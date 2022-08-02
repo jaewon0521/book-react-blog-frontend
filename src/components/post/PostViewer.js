@@ -24,20 +24,22 @@ const PostContent = styled.div`
   color: ${palette.gray[8]};
 `
 
-const PostViewer = ({ post, error, loading }) => {
-  //에러 발생 시
+const PostViewer = ({ post, error, loading, actionButtons }) => {
+   // 에러 발생 시
   if (error) {
-    if (error.response && error.response.status === 400) {
-      return <PostViewerBlock>존재하지 않는 포스트입니다.</PostViewerBlock>
+    if (error.response && error.response.status === 404) {
+      return <PostViewerBlock>존재하지 않는 포스트입니다.</PostViewerBlock>;
     }
-    return <PostViewerBlock>오류 발생!</PostViewerBlock>
+    return <PostViewerBlock>오류 발생!</PostViewerBlock>;
   }
 
-  //로딩 중이거나 아직 포스트 데이터가 없을 때
-  if (loading || post) {
+  // 로딩중이거나, 아직 포스트 데이터가 없을 시
+  if (loading || !post) {
     return null;
   }
+  
   const { title, body, user, publishedDate, tags } = post;
+  
   return (
     <PostViewerBlock>
       <PostHead>
@@ -49,6 +51,7 @@ const PostViewer = ({ post, error, loading }) => {
         />
         <Tags tags={tags} />
       </PostHead>
+      {actionButtons}
       <PostContent dangerouslySetInnerHTML={{__html: body}}/>
     </PostViewerBlock>
   )
