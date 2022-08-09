@@ -39,7 +39,6 @@ const PostViewer = ({ post, error, loading, actionButtons }) => {
   }
   
   const { title, body, user, publishedDate, tags } = post;
-  
   return (
     <PostViewerBlock>
       <PostHead>
