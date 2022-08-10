@@ -7,10 +7,10 @@ export const listPosts = ({ page, username, tag }) => {
     params: { page, username, tag },
   });
 };
-export const updatePost = ({ id, title, body, tags }) => {
+export const updatePost = ({ id, title, body, tags }) =>
   client.patch(`/api/posts/${id}`, {
     title,
     body,
-    tags
+    tags,
   });
-};
+export const removePost = id => client.delete(`api/posts/${id}`);
